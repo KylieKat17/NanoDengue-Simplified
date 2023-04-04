@@ -25,7 +25,7 @@ This script requires minimap2 and samtools to be installed.
 3. Open a terminal window and navigate to the folder.
 4. Run the script using the following command:
 
-'**bash scriptname.sh**'
+'**bash NanoDengue.sh**'
 
 The script will execute and generate the output SAM, BAM, and consensus fasta files in the same folder.
 
