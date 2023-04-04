@@ -5,17 +5,18 @@ NanoDengue is a Bash script designed to generate a consensus FASTA file from Nan
 This Bash script takes in a folder containing fastq.gz files, unzips them, aligns them to a reference genome using minimap2, and generates a consensus fasta file from the aligned BAM files using samtools.
 
 # Script Steps
-Set the path for the reference genome file.
-Loop through all the fastq.gz files in the folder and gunzip them.
-Loop through all the fastq files in the folder.
-Generate the output SAM file name based on the input fastq file name.
-Run minimap2 to align the fastq file to the reference genome and output a SAM file.
-Generate the output BAM file name based on the input SAM file name.
-Sort the SAM file and output it as a BAM file.
-Generate an index file for the BAM file.
-Generate the output consensus fasta file name based on the input BAM file name.
-Generate the consensus fasta file from the BAM file.
-Required Dependencies
+1. Set the path for the reference genome file.
+2. Loop through all the fastq.gz files in the folder and gunzip them.
+3.Loop through all the fastq files in the folder.
+4.Generate the output SAM file name based on the input fastq file name.
+5.Run minimap2 to align the fastq file to the reference genome and output a SAM file.
+6.Generate the output BAM file name based on the input SAM file name.
+7.Sort the SAM file and output it as a BAM file.
+8.Generate an index file for the BAM file.
+9.Generate the output consensus fasta file name based on the input BAM file name.
+10.Generate the consensus fasta file from the BAM file.
+
+#Required Dependencies
 This script requires minimap2 and samtools to be installed.
 
 # Usage
