@@ -1,7 +1,7 @@
 # NanoDengue
 
 # Introduction
-nanoDengue is a bash script that performs two operations on fastq files found in the fastq_pass folder. The first operation is to generate quality control plots using NanoPlot. The second operation is to align fastq files to a reference genome using Minimap2, sort the resulting SAM file using Samtools, and generate a consensus sequence from the resulting BAM file using Samtools.
+nanoDengue is a bash script that performs two operations and generate a consensus FASTA file from Nanopore sequencing fastq data. The first operation is to generate quality control plots using NanoPlot. The second operation is to align fastq files to a reference genome using Minimap2, sort the resulting SAM file using Samtools, and generate a consensus sequence from the resulting BAM file using Samtools.
 
 # Requirements
 The following software tools are required to run nanoDengue:
@@ -15,6 +15,10 @@ The following software tools are required to run nanoDengue:
 2. Move the script to the directory containing the fastq_pass folder.
 3. Open the terminal and navigate to the directory containing the script.
 4. Run the script using the following command:
+
+```
+  bash nanoDengue.sh
+``` 
 
 # Script Overview
 The nanoDengue script contains two main operations that are performed sequentially on each fastq file found in the fastq_pass folder.
