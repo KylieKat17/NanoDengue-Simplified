@@ -1,16 +1,28 @@
 #!/bin/bash
 
+# First Script - NanoPlot
+
+for file in fastq_pass/*/*.fastq.gz; do
+  dir=$(dirname $file)
+  base=$(basename $file .fastq.gz)
+  outdir="Nano/$dir/$base"
+  mkdir -p $outdir
+  NanoPlot --fastq $file --plots kde hex dot --outdir $outdir
+done
+
+# Second Script - Minimap2 and Samtools
+
 # set reference genome file path
 ref_genome="NC_001477.fasta"
 
 # gunzip all fastq.gz files in folder
-for gz_file in *.fastq.gz
+for gz_file in fastq_pass/*/*.fastq.gz
 do
     gunzip "$gz_file"
 done
 
 # loop through all fastq files in folder
-for fastq_file in *.fastq
+for fastq_file in fastq_pass/*/*.fastq
 do
     # generate output SAM file name based on input fastq file name
     sam_file="${fastq_file%.fastq}_minimap2.sam"
