@@ -19,8 +19,9 @@
 ## 🚀 Quick Start (no Git CLI required)
 
 1. **Download the repo**
+   
    On the private GitHub page, click **`<> Code ➜ Download ZIP`**. Unzip anywhere (e.g. `~/Downloads`).
-2. **Move the toolbox + config into place**
+3. **Move the toolbox + config into place**
 
    ```bash
    mv ~/Downloads/NanoDengueSimplified/bio-toolbox  $HOME/
@@ -28,9 +29,10 @@
    ```
 
    *Nothing to rename:* the repo already ships with `bio-configs/nanoDengue.conf` — open it and edit the right‑hand paths *only if* your tools aren’t on `$PATH`.
-3. **Update your shell startup**
-   Follow **[`Updating-Bash-Startup.md`](./Updating-Bash-Startup.md)** (two copy‑paste lines in `~/.bashrc`, then `source ~/.bashrc`).
-4. **Prepare a run folder**
+4. **Update your shell startup**
+   
+   Follow **[`Updating-Bash-StartUp`](./Updating-Bash-StartUp.md)** (two copy‑paste lines in `~/.bashrc`, then `source ~/.bashrc`).
+6. **Prepare a run folder**
 
    ```text
    my‑run/
@@ -39,7 +41,7 @@
    ```
 
    *This is an example!* No clue how your file management is set up so this might differ!
-5. **Run the pipeline**
+7. **Run the pipeline**
 
    ```bash
    cd my-run
