@@ -1,7 +1,4 @@
-# NanoDengueExtended
-
-## Original
-Forked from [NanoDengue](https://github.com/rajithadp/NanoDengue) by *rajithadp* to more easily run by people with basic shell scripting ability and are "lazy" (I wanted to call this NanoDengueForDummies but that's mean). 
+# NanoDengue
 
 # Introduction
 nanoDengue is a bash script that performs two operations and generate a consensus FASTA file from Nanopore sequencing fastq data. The first operation is to generate quality control plots using NanoPlot. The second operation is to align fastq files to a reference genome using Minimap2, sort the resulting SAM file using Samtools, and generate a consensus sequence from the resulting BAM file using Samtools.
@@ -9,16 +6,13 @@ nanoDengue is a bash script that performs two operations and generate a consensu
 # Requirements
 The following software tools are required to run nanoDengue:
 
-* [NanoPlot](https://github.com/wdecoster/NanoPlot) 
-* [Minimap2](https://github.com/lh3/minimap2)
-* [Samtools](https://sourceforge.net/projects/samtools/files/samtools/)
-  * Documentation (here)[https://www.htslib.org/]
+* NanoPlot
+* Minimap2
+* Samtools
 
 # Usage
-1. Download the nanoDengueExtended repo to your local machine.
-2. Move the `bio-configs` directory to your `$HOME`, which should look like something this:
-    `/home/username/bio-configs`
-the script to the directory containing the fastq_pass folder.
+1. Download the nanoDengue script to your local machine.
+2. Move the script to the directory containing the fastq_pass folder.
 3. Open the terminal and navigate to the directory containing the script.
 4. Run the script using the following command:
 
