@@ -18,9 +18,10 @@
 
 ## 🚀 Quick Start (no Git CLI required)
 
-1. **Download the repo**
+1. **Download the repo/ZIP file**
    
-   On the private GitHub page, click **`<> Code ➜ Download ZIP`**. Unzip anywhere (e.g. `~/Downloads`).
+   On the private GitHub page, click **`<> Code ➜ Download ZIP`**. Unzip anywhere (e.g. `~/Downloads`). If downloading via email, download and just unzip the same way!
+   
 3. **Move the toolbox + config into place**
 
    ```bash
