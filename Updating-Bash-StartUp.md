@@ -24,7 +24,7 @@ export BIO_CONF_DIR="$HOME/bio-configs"
 
 **Plain‑English translation:**
 
-| Line                    | Says to bash                                                                                             | Why we need it                                                                                            |
+| Line                    | Says to bash                                                                                             | Why it's needed                                                                                            |
 | ----------------------- | -------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
 | `export PATH=…`         | “Look for programs in the folder `~/bio-toolbox/bin` **first**, then everywhere else you normally look.” | So `nanoDengue.sh` (and future scripts) are found no matter where you are on the filesystem.              |
 | `export BIO_CONF_DIR=…` | “Our global config files live in `~/bio-configs`.”                                                       | The script reads this variable to locate `nanoDengue.conf` (paths to minimap2, samtools, etc.). |
@@ -41,7 +41,7 @@ export BIO_CONF_DIR="$HOME/bio-configs"
 
      ```bash
      nano ~/.bashrc          # super‑simple editor (recommended for beginners. I opened it once and hated it though)
-     vim  ~/.bashrc          # if you’re a vim person. might hurt your eyes if youre .vimrc file isn't set-up for ease of vision
+     vim  ~/.bashrc          # if you’re a vim person. might hurt your eyes if your .vimrc file isn't set-up for ease of vision
      emacs ~/.bashrc         # allows copy-paste on my machine, but might be be difficult to navigate
      code ~/.bashrc          # VS Code, if the `code` CLI is installed
      ```
@@ -71,7 +71,7 @@ export BIO_CONF_DIR="$HOME/bio-configs"
 
 ---
 
-## 4. Test it works
+## 4. Test That It Works!
 
 ```bash
 which nanoDengue.sh   # should print /home/you/bio-toolbox/bin/nanoDengue.sh
@@ -79,6 +79,8 @@ printenv BIO_CONF_DIR # should print /home/you/bio-configs
 ```
 
 If both commands show the expected paths, you’re done! Yay!
+
+(If it's not working, *TELL ME!*)
 
 ---
 
