@@ -1,71 +1,115 @@
-# NanoDengueExtended
+# NanoDengue‑Simplified
 
-## Original
-Forked from [NanoDengue](https://github.com/rajithadp/NanoDengue) by *rajithadp* to more easily run by people with basic shell scripting ability and are "lazy" (I wanted to call this NanoDengueForDummies but that's mean). 
+*A one‑command wrapper around the original* **[NanoDengue](https://github.com/rajithadp/NanoDengue)** *pipeline—designed for a single wet-lab biologist who’d rather not fiddle with shell paths every run*
 
-# Introduction
-nanoDengue is a bash script that performs two operations and generate a consensus FASTA file from Nanopore sequencing fastq data. The first operation is to generate quality control plots using NanoPlot. The second operation is to align fastq files to a reference genome using Minimap2, sort the resulting SAM file using Samtools, and generate a consensus sequence from the resulting BAM file using Samtools.
+---
 
-# Requirements
-The following software tools are required to run nanoDengue:
+## ✨ What This Wrapper Adds
 
-* [NanoPlot](https://github.com/wdecoster/NanoPlot) 
-* [Minimap2](https://github.com/lh3/minimap2)
-* [Samtools](https://sourceforge.net/projects/samtools/files/samtools/)
-  * Documentation (here)[https://www.htslib.org/]
+| Feature                         | Why you care                                                                                                                                      |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Global Config**               | Puts absolute paths to **minimap2**, **samtools**, **NanoPlot** in **one** file (`$HOME/bio-configs/nanoDengue.conf`). No more hard‑coding. |
+| **Auto‑detect inputs**          | Drop a `fastq_pass/` folder and a `*.fasta` reference into any run directory, then just type `nanoDengue.sh` and go.                                  |
+| **CLI Override Flags**               | Need a different reference or output folder? Use `-r`, `-i`, and `-o` flags to point at a different reference, reads folder, or NanoPlot output dir *without editing the script*              |
+| **Inline Help & Sanity Checks** | The script tells you if a tool is missing *before* running and wasting your time, and prints a summary of which paths it will use.                                              |
+| **Heavily‑Commented Source**    | Every block includes “why” comments, so making adjustments or debugging is (hopefully) more straightforward on a diff machine.                                                                    |
 
-# Usage
-1. Download the nanoDengueExtended repo to your local machine.
-2. Move the `bio-configs` directory to your `$HOME`, which should look like something this:
-    `/home/username/bio-configs`
-the script to the directory containing the fastq_pass folder.
-3. Open the terminal and navigate to the directory containing the script.
-4. Run the script using the following command:
+---
 
+## 🚀 Quick Start (no Git CLI required)
+
+1. **Download the repo**
+   On the private GitHub page, click **`<> Code ➜ Download ZIP`**. Unzip anywhere (e.g. `~/Downloads`).
+2. **Move the toolbox + config into place**
+
+   ```bash
+   mv ~/Downloads/NanoDengueSimplified/bio-toolbox  $HOME/
+   mv ~/Downloads/NanoDengueSimplified/bio-configs  $HOME/
+   ```
+
+   *Nothing to rename:* the repo already ships with `bio-configs/nanoDengue.conf` — open it and edit the right‑hand paths *only if* your tools aren’t on `$PATH`.
+3. **Update your shell startup**
+   Follow **[`Updating-Bash-Startup.md`](./Updating-Bash-Startup.md)** (two copy‑paste lines in `~/.bashrc`, then `source ~/.bashrc`).
+4. **Prepare a run folder**
+
+   ```text
+   my‑run/
+   ├─ fastq_pass/            # barcoded sub‑dirs / *.fastq.gz
+   └─ dengue.fa             # reference genome
+   ```
+
+   *This is an example!* No clue how your file management is set up so this might differ!
+5. **Run the pipeline**
+
+   ```bash
+   cd my-run
+   nanoDengue.sh            # auto‑detects everything
+   # Examples:
+   nanoDengue.sh -r ZIKV.fa                # custom reference
+   nanoDengue.sh -i reads -o QC_Plots      # custom reads & output folder
+   ```
+
+> **Tip:** If you *do* have Git installed, `git clone` works too. The folder names are identical, so Steps 2‑5 are unchanged.
+
+---
+
+## 🗄️  Toolbox & Config Layout
+
+```text
+$HOME/
+├─ bio-toolbox/
+│   ├─ bin/
+│   │   └─ nanoDengue.sh      # symlink → ../pipelines/nanoDengue.sh
+│   └─ pipelines/
+│       └─ nanoDengue.sh      # the actual, commented script
+└─ bio-configs/
+    └─ nanoDengue.conf        # MINIMAP2=… SAMTOOLS=… NANOPLOT=…
 ```
-  bash nanoDengue.sh
-``` 
 
-# Script Overview
-The nanoDengue script contains two main operations that are performed sequentially on each fastq file found in the fastq_pass folder.
+### nanoDengue.conf template
 
-# Operation 1: NanoPlot
-The first operation generates quality control plots using NanoPlot. The following steps are performed:
+```bash
+# Only fill in a path if the tool is NOT already on $PATH.
+MINIMAP2=/opt/minimap2/minimap2
+SAMTOOLS=/usr/local/bin/samtools
+NANOPLOT=$HOME/miniconda3/envs/nano/bin/NanoPlot
+# GZIP=/usr/bin/gzip
+# GUNZIP=/usr/bin/gunzip
+```
+> This is located in the `bio-configs` directory already!
 
-1. Loop through all fastq.gz files in the fastq_pass folder.
-2. Create a new output directory for each fastq.gz file in the format "Nano/<subdirectory>/<filename>".
-3. Run NanoPlot on each fastq.gz file using the following parameters:
---fastq: specify the input fastq.gz file.
---plots: specify the type of plots to generate (kde, hex, dot).
---outdir: specify the output directory to save the plots.
+---
 
-#Operation 2: Minimap2 and Samtools
-The second operation aligns fastq files to a reference genome using Minimap2, sorts the resulting SAM file using Samtools, and generates a consensus sequence from the resulting BAM file using Samtools. The following steps are performed:
+## 🔬 What the script does (internals)
 
-1. Set the path to the reference genome file.
-2. Gunzip all fastq.gz files in the fastq_pass folder.
-3. Loop through all fastq files in the fastq_pass folder.
-4. Generate an output SAM file name based on the input fastq file name.
-5. Run Minimap2 to align the fastq file to the reference genome and output the resulting SAM file.
-6. Generate an output BAM file name based on the input SAM file name.
-7. Sort the SAM file and output the resulting BAM file.
-8. Generate an index file for the BAM file.
-9. Generate an output consensus fasta file name based on the input BAM file name.
-10. Generate a consensus fasta file from the BAM file using Samtools.
+1. **NanoPlot QC**  → Kde/Hex/Dot plots for every `*.fastq.gz`.
+2. **Decompress**   → writes `*.fastq` copies (keeps `.gz`).
+3. **Alignment**    → `minimap2 -a reference reads > SAM`.
+4. **BAM workflow** → sort → index → consensus FASTA (`samtools`).
+5. **Outputs** per read file:
 
-#Output
-The following output files are generated for each fastq file processed by the script:
+   * `Nano/<subdir>/<sample>/*.png|.html`  – QC plots
+   * `<sample>_minimap2.sam`
+   * `<sample>_minimap2_sorted.bam` + `.bai`
+   * `<sample>_minimap2_sorted.consensus.fasta`
 
-* Three quality control plots in PNG format located in the "Nano/<subdirectory>/<filename>" folder.
-* One SAM file located in the same folder as the input fastq file.
-* One BAM file located in the same folder as the input fastq file.
-* One index file located in the same folder as the input fastq file.
-* One consensus fasta file located in the same folder as the input fastq file.
+---
 
-# Example Output
-If the input fastq file name is "sample.fastq", the output files generated by the script will be:
+## 🧩 Troubleshooting Cheatsheet
 
-* "sample_minimap2.sam"
-* "sample_minimap2_sorted.bam"
-* "sample_minimap2_sorted.bam.bai"
-* "sample_minimap2_sorted.consensus.fasta"
+| Symptom                        | Likely Fix                                                                                    |
+| ------------------------------ | -------------------------------------------------------------------------------------- |
+| `command not found minimap2`   | Add `MINIMAP2=/abs/path/minimap2` in `nanoDengue.conf` or install minimap2 on `$PATH`. |
+| `Permission denied` on script  | `chmod +x $HOME/bio-toolbox/pipelines/nanoDengue.sh`                                   |
+| Symlink issues on immutable FS | Run with `-i fastq_pass -o Nano` so symlinks aren’t needed.                            |
+| Wrong reference auto‑picked    | Use `-r correctRef.fa`.                                                                |
+
+More context is baked into the script’s comments.
+
+---
+
+## 📜 License & credits
+
+* Original algorithm – **NanoDengue** by [rajithadp](https://github.com/rajithadp/NanoDengue) (MIT).
+* Wrapper & docs – *created for a single private user*
+
